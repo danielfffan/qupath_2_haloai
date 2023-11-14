@@ -91,10 +91,10 @@ def qupath_2_haloai_direct(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Transfer the data from geojson to haloai annotation (.annotation)')
-    parser.add_argument('-c', '--category', help="The category for the primitive (e.g. tubule/cortex).", type=str, default=None)
-    parser.add_argument('-o', '--color', help="The color for the primitive shown in the HALOAI.", type=str, default=None)
     parser.add_argument('inputdir', help="The directory containing the qupath project files.", type=str)
     parser.add_argument('outputdir', help="The directory for the output annotation files.",type=str)
+    parser.add_argument('category', help="The category for the primitive (e.g. tubule/cortex).", type=str, default=None)
+    parser.add_argument('-c','--color', help="The color for the primitive shown in the HALOAI.", type=str, default='65535')
     args = parser.parse_args()
     print(args)
     qupath_2_haloai_direct(args)
