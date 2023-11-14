@@ -19,9 +19,18 @@ And the following additional python package:
 3. os
 
 4. xml.dom
-5. 
-You can install the python requirements using the following command line:
+ 
+Since argparse/os/xml.dom are standard libraries already installed, you only need to install paquo library by using:
 
 ```
-pip3 install -r requirements.txt
+pip3 install paquo
 ```
+
+### Run
+
+Go to the github repository. Download or simply git-cloned, using the following typical command line for running the script like.
+
+```python
+ python3 qupath_2_haloai_using_paquo.py {The directory containing the qupath project files.} {The directory for the output annotation files.} {The category for the primitive (e.g. tubule/cortex)}.
+```
+
