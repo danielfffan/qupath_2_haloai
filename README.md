@@ -39,10 +39,14 @@ For example:
 python3 qupath_2_haloai_using_paquo.py qupath output mas
 ```
 ### Two error messages.
-
-1. Error: there is no annotation named {args.category} in the QuPath project.
+```python
+raise ValueError(f"Error: there is no annotation named {args.category} in the QuPath project")
+```
 Please make sure in the qupath project file, there are annotations have the {args.category} classname.
-2. Please check if the {args.inputdir}/project.qpproj and/or {args.outputdir} exist(s)!
+
+```python
+ raise ValueError(f"Please check if the {args.inputdir}/project.qpproj and/or {args.outputdir} exist(s)!")
+```
 Please check if the input directory and output directory exists.
 Also make sure the input directory includes ALL the qupath files/folders.
 
