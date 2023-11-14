@@ -23,46 +23,13 @@ def generate_annotation(image):
             if (roi.type == 'Polygon'):
                 boundary = roi.boundary
                 coordinates = list(boundary.coords)
-                region = root.createElement('Region')
-                region.setAttribute('Type', 'Polygon')
-                region.setAttribute('HasEndcaps', '0')
-                region.setAttribute('NegativeROA', '0')
-                regions.appendChild(region)
-                annotation.appendChild(regions)
-                vertices = root.createElement('Vertices')
-                region.appendChild(vertices)
-                for c in coordinates:
-                    v = root.createElement('V')
-                    x = c[0]
-                    y = c[1]
-                    v.setAttribute('X', f'{x}')
-                    v.setAttribute('Y', f'{y}')
-                    vertices.appendChild(v)
-                comments = root.createElement('Comments')
-                # comments.setAttribute()
-                region.appendChild(comments)
-
-            elif (roi.type == 'MultiPolygon'):
-                boundaries = roi.boundary
-                for boundary in boundaries:
-                    coordinates = list(boundary.coords)
-
+                if(len(coordinates)>5):
                     region = root.createElement('Region')
                     region.setAttribute('Type', 'Polygon')
                     region.setAttribute('HasEndcaps', '0')
                     region.setAttribute('NegativeROA', '0')
                     regions.appendChild(region)
                     annotation.appendChild(regions)
-
-                    coordinates = list(boundary.coords)
-
-                    region = root.createElement('Region')
-                    region.setAttribute('Type', 'Polygon')
-                    region.setAttribute('HasEndcaps', '0')
-                    region.setAttribute('NegativeROA', '0')
-                    regions.appendChild(region)
-                    annotation.appendChild(regions)
-
                     vertices = root.createElement('Vertices')
                     region.appendChild(vertices)
                     for c in coordinates:
@@ -75,6 +42,37 @@ def generate_annotation(image):
                     comments = root.createElement('Comments')
                     # comments.setAttribute()
                     region.appendChild(comments)
+
+            elif (roi.type == 'MultiPolygon'):
+                boundaries = roi.boundary
+                for boundary in boundaries:
+                    coordinates = list(boundary.coords)
+                    if (len(coordinates)>5):
+                        region = root.createElement('Region')
+                        region.setAttribute('Type', 'Polygon')
+                        region.setAttribute('HasEndcaps', '0')
+                        region.setAttribute('NegativeROA', '0')
+                        regions.appendChild(region)
+                        annotation.appendChild(regions)
+                        region = root.createElement('Region')
+                        region.setAttribute('Type', 'Polygon')
+                        region.setAttribute('HasEndcaps', '0')
+                        region.setAttribute('NegativeROA', '0')
+                        regions.appendChild(region)
+                        annotation.appendChild(regions)
+
+                        vertices = root.createElement('Vertices')
+                        region.appendChild(vertices)
+                        for c in coordinates:
+                            v = root.createElement('V')
+                            x = c[0]
+                            y = c[1]
+                            v.setAttribute('X', f'{x}')
+                            v.setAttribute('Y', f'{y}')
+                            vertices.appendChild(v)
+                        comments = root.createElement('Comments')
+                        # comments.setAttribute()
+                        region.appendChild(comments)
     annotations.appendChild(annotation)
     with open(f"{args.outputdir}/{fileID}_{args.category}.annotations", "w") as file:
         file.write(root.toprettyxml(indent=" "))
